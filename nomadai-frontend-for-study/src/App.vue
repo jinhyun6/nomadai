@@ -97,7 +97,7 @@ export default {
         this.messages.push({ sender: this.currentUser.name, text: currentMessage });
         this.userMessage = '';
         
-        fetch('/api/chat', {
+        fetch(`${process.env.VUE_APP_API_URL}/chat`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ export default {
     },
     
     loadChatHistory() {
-      fetch(`/api/messages/${this.currentUser.id}`)
+      fetch(`${process.env.VUE_APP_API_URL}/messages/${this.currentUser.id}`)
         .then(response => response.json())
         .then(data => {
           this.messages = data.messages.map(msg => ({

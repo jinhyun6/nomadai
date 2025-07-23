@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     handleLogin() {
-      fetch('/api/login', {
+      fetch(`${process.env.VUE_APP_API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
