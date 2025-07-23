@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./nomadai-for-study
+    container_name: nomadai-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+    volumes:
+      - ./nomadai-for-study/chat_history.db:/app/chat_history.db
+    networks:
+      - nomadai-network
+
+  frontend:
+    build: ./nomadai-frontend-for-study
+    container_name: nomadai-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - nomadai-network
+
+networks:
+  nomadai-network:
+    driver: bridge
