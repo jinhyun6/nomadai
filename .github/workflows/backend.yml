@@ -59,3 +59,4 @@ jobs:
           --platform managed \
           --region asia-northeast3 \
           --allow-unauthenticated
+          --set-env-vars CLAUDE_API_KEY=${{ secrets.CLAUDE_API_KEY }}
