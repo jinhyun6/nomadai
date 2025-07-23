@@ -36,6 +36,8 @@ jobs:
       run: |
         cd nomadai-frontend-for-study
         npm run build
+      env:
+        VUE_APP_API_URL: https://nomadai-backend-890659484520.asia-northeast3.run.app
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
