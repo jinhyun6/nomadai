@@ -1,0 +1,34 @@
+name: Backend CI/CD
+
+on:
+  push:
+    paths:
+      - 'nomadai-for-study/**'
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'nomadai-for-study/**'
+    branches: [ main ]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        cd nomadai-for-study
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run tests
+      run: |
+        cd nomadai-for-study
+        echo "백엔드 테스트 실행 (추후 추가예정)"

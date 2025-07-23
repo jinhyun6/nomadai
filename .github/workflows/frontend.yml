@@ -1,0 +1,38 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    paths:
+      - 'nomadai-frontend-for-study/**'
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'nomadai-frontend-for-study/**'
+    branches: [ main ]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      run: |
+        cd nomadai-frontend-for-study
+        npm install
+    
+    - name: Run tests
+      run: |
+        cd nomadai-frontend-for-study
+        echo "프론트엔드 테스트 실행 (추후 추가예정)"
+    
+    - name: Build
+      run: |
+        cd nomadai-frontend-for-study
+        npm run build
