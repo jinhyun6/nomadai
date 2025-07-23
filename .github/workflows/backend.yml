@@ -33,12 +33,15 @@ jobs:
         cd nomadai-for-study
         echo "백엔드 테스트 실행 (추후 추가예정)"
 
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        project_id: NomadAI
-        export_default_credentials: true
+        project_id: nomadai-465512
 
     - name: Configure Docker for GCR
       run: gcloud auth configure-docker
@@ -46,13 +49,13 @@ jobs:
     - name: Build and push Docker image
       run: |
         cd nomadai-for-study
-        docker build -t gcr.io/NomadAI/nomadai-backend:${{ github.sha }} .
-        docker push gcr.io/NomadAI/nomadai-backend:${{ github.sha }}
+        docker build -t gcr.io/nomadai-465512/nomadai-backend:${{ github.sha }} .
+        docker push gcr.io/nomadai-465512/nomadai-backend:${{ github.sha }}
 
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy nomadai-backend \
-          --image gcr.io/NomadAI/nomadai-backend:${{ github.sha }} \
+          --image gcr.io/nomadai-465512/nomadai-backend:${{ github.sha }} \
           --platform managed \
           --region asia-northeast3 \
           --allow-unauthenticated
