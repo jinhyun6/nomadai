@@ -36,3 +36,25 @@ jobs:
       run: |
         cd nomadai-frontend-for-study
         npm run build
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: NomadAI
+        export_default_credentials: true
+
+    - name: Create production build
+      run: |
+        cd nomadai-frontend-for-study
+        npm run build
+
+    - name: Deploy to Cloud Storage
+      run: |
+        cd nomadai-frontend-for-study
+        gsutil -m rsync -r -d dist/ gs://nomadai-frontend-bucket/
+
+    - name: Set up Cloud Storage bucket for web hosting
+      run: |
+        gsutil web set -m index.html -e index.html gs://nomadai-frontend-bucket
+        gsutil iam ch allUsers:objectViewer gs://nomadai-frontend-bucket
