@@ -70,7 +70,7 @@ export default {
         alert('비밀번호가 일치하지 않습니다.');
         return;
       }
-      fetch(`${process.env.VUE_APP_API_URL}/login`, {
+      fetch(`${process.env.VUE_APP_API_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
